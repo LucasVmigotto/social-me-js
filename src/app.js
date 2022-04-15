@@ -18,6 +18,7 @@ module.exports = config => {
 
     req.knex = knex
     req.logger = logger
+    req.mailer = mailer
 
     next()
 
