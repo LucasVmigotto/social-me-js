@@ -1,5 +1,6 @@
 const { verify } = require('jsonwebtoken')
 const config = require('./config')
+const { makeResponse } = require('./utils')
 
 const verifyToken = (token, secret) =>
 
@@ -32,7 +33,7 @@ const parseAuthorization = (auth) => {
   return token
 }
 
-const protectedByAuth = (req, _, next) => {
+const protectedByAuth = (req, res, next) => {
 
   const { headers: { authorization } } = req
 
@@ -61,7 +62,11 @@ const protectedByAuth = (req, _, next) => {
 
   } else {
 
-    next()
+    return makeResponse(
+      res,
+      409,
+      { message: 'No token was submitted' }
+    )
 
   }
 
