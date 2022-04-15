@@ -39,24 +39,20 @@ CREATE TABLE IF NOT EXISTS social_me.audit_posts (
     CONSTRAINT socialme_audit_posts_id_key UNIQUE (id)
 );
 
-DROP TABLE IF EXISTS social_me.comments;
-CREATE TABLE IF NOT EXISTS social_me.comments (
+DROP TABLE IF EXISTS social_me.commentaries;
+CREATE TABLE IF NOT EXISTS social_me.commentaries (
     id SERIAL,
     post_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     description TEXT NOT NULL,
     deleted_by comment_deleted_by_type DEFAULT NULL,
-    CONSTRAINT socialme_comments_id_key UNIQUE (id),
-    CONSTRAINT socialme_comments_post_id_fk
+    CONSTRAINT socialme_commentaries_id_key UNIQUE (id),
+    CONSTRAINT socialme_commentaries_post_id_fk
         FOREIGN KEY (post_id)
         REFERENCES social_me.posts(id)
         ON DELETE CASCADE,
-    CONSTRAINT socialme_comments_user_id_fk
+    CONSTRAINT socialme_commentaries_user_id_fk
         FOREIGN KEY (user_id)
-        REFERENCES social_me.users(id)
-        ON DELETE CASCADE,
-    CONSTRAINT socialme_comments_deleted_by_fk
-        FOREIGN KEY (deleted_by)
         REFERENCES social_me.users(id)
         ON DELETE CASCADE
 );

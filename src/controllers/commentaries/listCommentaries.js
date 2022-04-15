@@ -5,28 +5,28 @@ module.exports = async ({ params, knex, logger }, res) => {
 
     const { postId } = params
 
-    const comments = await knex('social_me.comments')
+    const commentaries = await knex('social_me.commentaries')
       .select(
-        'comments.id',
-        'comments.description',
-        'comments.deleted_by',
+        'commentaries.id',
+        'commentaries.description',
+        'commentaries.deleted_by',
         'users.name'
       )
       .leftJoin('social_me.users', 'user_id', 'users.id')
       .where('post_id', postId)
-      .orderBy('comments.id')
+      .orderBy('commentaries.id')
 
-      logger.info(`Comments query returned with ${comments.length} results`)
+      logger.info(`Commentaries query returned with ${commentaries.length} results`)
 
       return makeResponse(
         res,
         200,
-        { comments }
+        { commentaries }
       )
 
   } catch (err) {
 
-    logger.error(`Error in listComments: ${err}`)
+    logger.error(`Error in listCommentaries: ${err}`)
     return makeResponse(
       res,
       500,

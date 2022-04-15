@@ -17,7 +17,7 @@ module.exports = async ({ params, body, knex, logger, user }, res) => {
 
     }
 
-    const [creator] = await knex('social_me.comments')
+    const [creator] = await knex('social_me.commentaries')
       .select('user_id')
       .where('id', commentId)
 
@@ -26,12 +26,12 @@ module.exports = async ({ params, body, knex, logger, user }, res) => {
       return makeResponse(
         res,
         409,
-        { message: 'You can only edit comments that you have created' }
+        { message: 'You can only edit commentaries that you have created' }
       )
 
     }
 
-    const [commentUpdated] = await knex('social_me.comments')
+    const [commentUpdated] = await knex('social_me.commentaries')
       .update({ description })
       .where('id', commentId)
       .returning('id')

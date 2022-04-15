@@ -45,7 +45,7 @@ module.exports = async ({ body, knex, logger, user, mailer }, res) => {
 
     }
 
-    const [comment] = await knex('social_me.comments')
+    const [comment] = await knex('social_me.commentaries')
       .insert(decamelizeKeys({
         postId,
         userId: user.id,

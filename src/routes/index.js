@@ -4,7 +4,7 @@ const { authMe } = require('../controllers/auth')
 const users = require('../controllers/users')
 const posts = require('../controllers/posts')
 const reactions = require('../controllers/reactions')
-const comments = require('../controllers/comments')
+const commentaries = require('../controllers/commentaries')
 
 module.exports = app => {
 
@@ -26,9 +26,9 @@ module.exports = app => {
   app.patch('/posts/:postId/dislike', protectedByAuth, reactions.addReaction('dislikes'))
   app.patch('/posts/:postId/dislike/undo', protectedByAuth, reactions.removeReaction('dislikes'))
 
-  app.post('/comments', protectedByAuth, comments.createComment)
-  app.get('/comments/:postId', protectedByAuth, comments.listComments)
-  app.put('/comments/:commentId', protectedByAuth, comments.updateComment)
-  app.delete('/comments/:commentId', protectedByAuth, comments.deleteComment)
+  app.post('/commentaries', protectedByAuth, commentaries.createComment)
+  app.get('/commentaries/:postId', protectedByAuth, commentaries.listCommentaries)
+  app.put('/commentaries/:commentId', protectedByAuth, commentaries.updateComment)
+  app.delete('/commentaries/:commentId', protectedByAuth, commentaries.deleteComment)
 
 }
