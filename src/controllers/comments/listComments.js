@@ -9,11 +9,11 @@ module.exports = async ({ params, knex, logger }, res) => {
       .select(
         'comments.id',
         'comments.description',
+        'comments.deleted_by',
         'users.name'
       )
       .leftJoin('social_me.users', 'user_id', 'users.id')
       .where('post_id', postId)
-      .whereNull('deleted_by')
       .orderBy('comments.id')
 
       logger.info(`Comments query returned with ${comments.length} results`)

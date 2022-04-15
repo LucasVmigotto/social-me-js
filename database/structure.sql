@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS social_me.comments (
     post_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     description TEXT NOT NULL,
-    deleted_by INTEGER DEFAULT NULL,
+    deleted_by comment_deleted_by_type DEFAULT NULL,
     CONSTRAINT socialme_comments_id_key UNIQUE (id),
     CONSTRAINT socialme_comments_post_id_fk
         FOREIGN KEY (post_id)
