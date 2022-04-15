@@ -8,8 +8,9 @@ services:
     env_file: .env
     volumes:
     - pgsql-data:/var/lib/postgresql/data
-    - ./database/functions.sql:/docker-entrypoint-initdb.d/10-social_me.sql
-    - ./database/structure.sql:/docker-entrypoint-initdb.d/20-social_me.sql
+    - ./database/types.sql:/docker-entrypoint-initdb.d/10-social_me.sql
+    - ./database/functions.sql:/docker-entrypoint-initdb.d/20-social_me.sql
+    - ./database/structure.sql:/docker-entrypoint-initdb.d/30-social_me.sql
     networks:
     - pgsql-network
 
