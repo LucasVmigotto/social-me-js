@@ -1,11 +1,11 @@
 const { sign } = require('jsonwebtoken')
-const { makeResponse } = require('../utils')
-const config = require('../config')
+const { makeResponse } = require('../../utils')
+const config = require('../../config')
 
-const authMe = async (req, res) => {
+const authMe = async ({ body, knex, logger }, res) => {
   try {
 
-    if (!req.body.email) {
+    if (!body.email) {
 
       return makeResponse(
         res,
@@ -15,9 +15,9 @@ const authMe = async (req, res) => {
 
     }
 
-    const [user] = await req.knex('social_me.users')
+    const [user] = await knex('social_me.users')
       .select('id', 'name')
-      .where('email', req.body.email)
+      .where('email', body.email)
       .limit(1)
 
     if (!user) {
@@ -25,7 +25,7 @@ const authMe = async (req, res) => {
       return makeResponse(
         res,
         409,
-        { message: `There is no user related to ${req.body.email}` }
+        { message: `There is no user related to ${body.email}` }
       )
 
     }
@@ -33,7 +33,7 @@ const authMe = async (req, res) => {
     const token = sign(
       {
         ...user,
-        email: req.body.email
+        email: body.email
       },
       config.JWT_SECRET,
       {
@@ -50,7 +50,7 @@ const authMe = async (req, res) => {
 
   } catch (err) {
 
-    req.logger.error(`Exception in authMe: ${err}`)
+    logger.error(`Exception in authMe: ${err}`)
 
     return makeResponse(
       res,

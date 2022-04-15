@@ -5,8 +5,7 @@ const bodyParser = require('body-parser')
 
 module.exports = config => {
   const { createContext } = require('./context')
-  const { protectedByAuth } = require('./security')
-  const { authMe } = require('./controllers/auth')
+  const router = require('./routes')
 
   const app = express()
 
@@ -24,11 +23,7 @@ module.exports = config => {
 
   })
 
-  app.post('/auth', authMe)
-
-  app.use(protectedByAuth)
-
-  // router(app)
+  router(app)
 
   const httpServer = http.createServer(app)
 
