@@ -19,6 +19,10 @@ CREATE TABLE IF NOT EXISTS social_me.posts (
     CONSTRAINT socialme_posts_id_key UNIQUE (id),
     CONSTRAINT socialme_posts_user_id_fk FOREIGN KEY (user_id) REFERENCES social_me.users(id)
 );
+CREATE TRIGGER social_me_posts_audit
+    AFTER UPDATE ON social_me.posts
+    FOR EACH ROW
+    EXECUTE PROCEDURE audit_posts_trigger_function();
 
 DROP TABLE IF EXISTS social_me.audit_posts;
 CREATE TABLE IF NOT EXISTS social_me.audit_posts (
@@ -32,10 +36,6 @@ CREATE TABLE IF NOT EXISTS social_me.audit_posts (
     CONSTRAINT socialme_audit_posts_id_key UNIQUE (id),
     CONSTRAINT socialme_audit_posts_post_id_fk FOREIGN KEY (post_id) REFERENCES social_me.posts(id)
 );
-CREATE TRIGGER social_me_posts_audit
-    AFTER UPDATE ON social_me.audit_posts
-    FOR EACH ROW
-    EXECUTE PROCEDURE audit_posts_trigger_function();
 
 DROP TABLE IF EXISTS social_me.comments;
 CREATE TABLE IF NOT EXISTS social_me.comments (
