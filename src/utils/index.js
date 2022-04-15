@@ -14,4 +14,21 @@ const makeResponse = (response, code = 201, payload = {}) => response
   .status(code)
   .send({ ...payload})
 
-module.exports = { makeResponse }
+/**
+ * Function that mount email
+ * address in necessary pattern
+ * as <name> <email>
+ *
+ * @param {object} info
+ * @param {string} info.name
+ * @param {string} info.email
+ * @returns {string} The string
+ * with the necessary format
+ */
+const mountAddress = ({ name, email }) =>
+  `${name} <${email}>`
+
+module.exports = {
+  makeResponse,
+  mountAddress
+}
