@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS social_me.users (
     id SERIAL,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(191) NOT NULL,
-    CONSTRAINT socialme_users_id_key UNIQUE (id)
+    CONSTRAINT socialme_users_id_key UNIQUE (id),
+    CONSTRAINT socialme_users_email_pk PRIMARY KEY (email)
 );
 
 DROP TABLE IF EXISTS social_me.posts;
