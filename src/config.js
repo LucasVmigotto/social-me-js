@@ -18,6 +18,9 @@ module.exports = {
 
   MAILHOG_PORT: process.env.MAILHOG_PORT || 1025,
 
+  SOCIAL_ME_EMAIL_NAME: process.env.SOCIAL_ME_EMAIL_NAME || 'Social.ME',
+  SOCIAL_ME_EMAIL_ADDR: process.env.SOCIAL_ME_EMAIL_ADDR || 'no-reply@social.me',
+
   LOG_LEVEL: process.env.LOG_LEVEL || 'info',
 
   NODE_ENV: process.env.NODE_ENV || 'dev'
