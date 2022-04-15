@@ -3,8 +3,6 @@ const debug = require('debug')('api:knex')
 
 exports.createKnex = ({ config, logger }) => {
 
-  console.log(config.PG_CONNECTION_STRING)
-
   const knex = Knex({
     client: 'pg',
     connection: config.PG_CONNECTION_STRING,
