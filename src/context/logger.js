@@ -10,10 +10,16 @@ exports.createLogger = context => {
 
   const { config } = context
 
+  const format = config.NODE_ENV === 'production'
+    ? combine(timestamp(), json())
+    : combine(timestamp(), prettyPrint())
+
   return winston.createLogger({
     level: config.LOG_LEVEL,
-    format: combine(timestamp(), json()),
-    transports: [new winston.transports.Console()],
+    format,
+    transports: [
+      new winston.transports.Console()
+    ],
     silent: config.NODE_ENV === 'test'
   })
 

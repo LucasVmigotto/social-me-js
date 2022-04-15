@@ -17,6 +17,7 @@ module.exports = app => {
 
   app.post('/posts', protectedByAuth, posts.createPost)
   app.get('/posts', protectedByAuth, posts.listPosts)
+  app.get('/posts/:postId', protectedByAuth, posts.getPost)
   app.put('/posts/:postId', protectedByAuth, posts.updatePost)
   app.delete('/posts/:postId', protectedByAuth, posts.deletePost)
 
