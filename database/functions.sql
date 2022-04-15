@@ -7,6 +7,7 @@ CREATE OR REPLACE FUNCTION audit_posts_trigger_function()
             EXECUTE
                 'INSERT INTO '
                 || 'social_me.audit_posts ('
+                || '    post_id,'
                 || '    old_title,'
                 || '    new_title,'
                 || '    old_description,'
@@ -15,9 +16,11 @@ CREATE OR REPLACE FUNCTION audit_posts_trigger_function()
                 || '    $1,'
                 || '    $2,'
                 || '    $3,'
-                || '    $4'
+                || '    $4,'
+                || '    $5'
                 || ')'
             USING
+                OLD.id,
                 OLD.title,
                 NEW.title,
                 OLD.description,
