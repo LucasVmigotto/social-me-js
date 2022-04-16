@@ -109,7 +109,7 @@ You can start the services and use it as need such as the following examples:
 
 ## API Handbook
 
-Use the [Postman](https://www.postman.com/product/what-is-postman/) collection to test the API's endpoints
+Use the [Postman](https://www.postman.com/product/what-is-postman/) collection in `doc/collections` folder to test the API's endpoints
 
 * In order to use the API, you need to start up the services first
 * Note that for some tests (e.g. edit a post with other user token that not the owner) you have to create more than one user.
