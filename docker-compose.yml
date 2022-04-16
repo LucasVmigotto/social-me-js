@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+  social-me-pgsql:
+    image: postgres:11
+    container_name: social-me-pgsql
+    hostname: social-me-pgsql
+    env_file: .env
+    volumes:
+    - pgsql-data:/var/lib/postgresql/data
+    - ./database/types.sql:/docker-entrypoint-initdb.d/10-social_me.sql
+    - ./database/functions.sql:/docker-entrypoint-initdb.d/20-social_me.sql
+    - ./database/structure.sql:/docker-entrypoint-initdb.d/30-social_me.sql
+    networks:
+    - pgsql-network
+
+  pgsql-cli:
+    image: pygmy/pgcli
+    container_name: pgsql_cli
+    command: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST/$POSTGRES_DB
+    stdin_open: true
+    tty: true
+    links:
+    - social-me-pgsql
+    volumes:
+    - pgsqlcli-home:/root
+    networks:
+    - pgsql-network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: social-me-mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+    - mailhog-network
+
+  social-me-api:
+    build:
+      context: ./docker
+    container_name: social-me-api
+    hostname: social-me-api
+    command: yarn start:dev
+    working_dir: /app
+    tty: true
+    env_file: .env
+    ports:
+    - $API_PORT:$API_PORT
+    volumes:
+    - .:/app:delegated
+    - home:/home/node
+    links:
+    - social-me-pgsql
+    - mailhog
+    networks:
+    - pgsql-network
+    - mailhog-network
+
+volumes:
+  pgsql-data:
+  pgsqlcli-home:
+  home:
+
+networks:
+  pgsql-network:
+  mailhog-network:
