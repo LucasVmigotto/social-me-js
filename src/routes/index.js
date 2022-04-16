@@ -16,8 +16,10 @@ module.exports = app => {
   app.delete('/users/:userId', protectedByAuth, users.deleteUser)
 
   app.post('/posts', protectedByAuth, posts.createPost)
+  app.post('/posts/reports', protectedByAuth, posts.reportPosts)
   app.get('/posts', protectedByAuth, posts.listPosts)
   app.get('/posts/:postId', protectedByAuth, posts.getPost)
+  app.get('/posts/history/:postId', protectedByAuth, posts.auditPost)
   app.put('/posts/:postId', protectedByAuth, posts.updatePost)
   app.delete('/posts/:postId', protectedByAuth, posts.deletePost)
 
