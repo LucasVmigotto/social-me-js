@@ -1,0 +1,9 @@
+{
+    "ignore": "node_modules",
+    "watch": [
+        ".env",
+        "nodemon.json",
+        "src"
+    ],
+    "ext": "js json"
+}

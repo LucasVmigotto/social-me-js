@@ -1,0 +1,767 @@
+{
+	"info": {
+		"_postman_id": "4941394a-c1c5-41fc-9d53-7bbe4f544cf1",
+		"name": "Social Me",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "/auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john.doe@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/auth",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Authorization\n\n* **POST**: `/auth`\n\n  User has to submit his email address, and if it is valid, will return the signed token to use in API endpoints\n\n  ```json\n  {\n      \"email\": \"example@mail.com\"\n  }\n  ```"
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/users",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/users",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/<userId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/users/<userId>",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"users",
+								"<userId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/<userId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/users/<userId>",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"users",
+								"<userId>"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Users\n\n* **GET** `/users` - (Protected)\n\n  List all users registered into the database\n\n* **POST** `/users`\n\n  Create, with the given `name` and `email` values in JSON payload, the user into the database\n\n  ```json\n  {\n      \"name\": \"John Doe\",\n      \"email\": \"example@mail.com\"\n  }\n  ```\n\n* **PUT** `/users/<userId>` - (Protected)\n\n  Update the `name` and `email` related to the user `id` informed **ONLY IF** matches with the user `id` in the signed token informed\n\n  ```json\n  {\n      \"name\": \"John Doe Changed\",\n      \"email\": \"example.changed@mail.com\"\n  }\n  ```\n\n* **DELETE** `/users/<userId>` - (Protected)\n\n  Delete the user with the `id` informed **ONLY IF** matches with the user `id` in the signed token informed",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "/posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/<postId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/<postId>",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"posts",
+								"<postId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/history/<postId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/history/<postId>",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"posts",
+								"history",
+								"<postId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/reports",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/reports",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"posts",
+								"reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Post title\",\n    \"description\": \"This should be a long text\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/<postId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Post title\",\n    \"description\": \"This should be a long text Changed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/1",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/<postId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ND}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/<postId>",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"posts",
+								"<postId>"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Posts\n\n* **GET** `/posts` - (Protected)\n\n  List all posts registered into the database\n\n* **GET** `/posts/<postId>` - (Protected)\n\n  Get all info related to the post with the given `id`, and for each display request increase the view count by one\n\n* **GET** `/posts/history/<postId>` - (Protected)\n\n  Get all info related to the updates the the post creator made in the post data (`title` and `description`) by the `id` informed\n\n* **POST** `/posts/reports` - (Protected)\n\n  Retrieve a report with all the posts into the database\n\n* **POST** `/posts` - (Protected)\n\n  Create a post with the `title` and `description` informed in the JSON payload, and link the created post with the user `id` in the sign token informed\n\n  ```json\n  {\n      \"title\": \"This is a title\",\n      \"description\": \"This should be a long text\"\n  }\n  ```\n\n* **PUT** `/posts/<postId>` - (Protected)\n\n  Update the `title` and `description` related to the post `id` informed **ONLY IF** the user `id` in the signed token is the same as the post owner\n\n  ```json\n  {\n      \"title\": \"This is a title Changed\",\n      \"description\": \"This should be a long text Changed\"\n  }\n  ```\n\n* **DELETE** `/posts/<postId>` - (Protected)\n\n  Delete the post with the `id` informed **ONLY IF** matches with the user that created it"
+		},
+		{
+			"name": "Commentaries",
+			"item": [
+				{
+					"name": "/commentaries/<postId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/commentaries/<postId>",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"commentaries",
+								"<postId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/commentaries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postId\": 1,\n    \"description\": \"Good Post!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/commentaries",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"commentaries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/commentaries/<commentId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Good post, kudos XD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/commentaries/1",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"commentaries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/commentaries/<commentId>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_TOKEN_ST}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/commentaries/<commentId>",
+							"protocol": "{{HTTP_PROTOCOL}}",
+							"host": [
+								"{{API_HOST}}"
+							],
+							"port": "{{API_PORT}}",
+							"path": [
+								"commentaries",
+								"<commentId>"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Commentaries\n\n* **GET** `/commentaries/<postId` - (Protected)\n\n  List all commentaries registered into the database related to the post `id` informed\n\n* **POST** `/commentaries` - (Protected)\n\n  Create a commentary with the `postId` and `description` informed in the JSON payload\n\n  ```json\n  {\n      \"postId\": \"This is a title\",\n      \"description\": \"This should be a short text\"\n  }\n  ```\n\n* **PUT** `/commentaries/<commentId>` - (Protected)\n\n  Update the `description` related to the commentary `id` informed **ONLY IF** the user `id` in the signed token is the same as the commentary owner\n\n  ```json\n  {\n      \"description\": \"This should be a short text Changed\"\n  }\n  ```\n\n* **DELETE** `/commentaries/<commentId>` - (Protected)\n\n  Delete the commentary with the `id` informed **ONLY IF** matches with the user that created it or the user that created the post that hold the commentary"
+		},
+		{
+			"name": "Reactions",
+			"item": [
+				{
+					"name": "Likes",
+					"item": [
+						{
+							"name": "/posts/<postId>/like",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_TOKEN_ST}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/<postId>/like",
+									"protocol": "{{HTTP_PROTOCOL}}",
+									"host": [
+										"{{API_HOST}}"
+									],
+									"port": "{{API_PORT}}",
+									"path": [
+										"posts",
+										"<postId>",
+										"like"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/posts/<postId>/like/undo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_TOKEN_ST}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/<postId>/like/undo",
+									"protocol": "{{HTTP_PROTOCOL}}",
+									"host": [
+										"{{API_HOST}}"
+									],
+									"port": "{{API_PORT}}",
+									"path": [
+										"posts",
+										"<postId>",
+										"like",
+										"undo"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "# Reactions - Likes\n\n* **PATCH** `/posts/<postId>/like` - (Protected)\n\n  Increase the post like value by one **ONLY IF** the user that requested did not reacted yet.\n\n* **PATCH** `/posts/<postId>/like/undo` - (Protected)\n\n  Decrease the post like value by one **ONLY IF** the user that requested already reacted to it."
+				},
+				{
+					"name": "Dislikes",
+					"item": [
+						{
+							"name": "/posts/<postId>/dislike",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_TOKEN_ST}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/<postId>/dislike",
+									"protocol": "{{HTTP_PROTOCOL}}",
+									"host": [
+										"{{API_HOST}}"
+									],
+									"port": "{{API_PORT}}",
+									"path": [
+										"posts",
+										"<postId>",
+										"dislike"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/posts/<postId>/dislike/undo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_TOKEN_ST}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{HTTP_PROTOCOL}}://{{API_HOST}}:{{API_PORT}}/posts/<postId>/dislike/undo",
+									"protocol": "{{HTTP_PROTOCOL}}",
+									"host": [
+										"{{API_HOST}}"
+									],
+									"port": "{{API_PORT}}",
+									"path": [
+										"posts",
+										"<postId>",
+										"dislike",
+										"undo"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "# Reactions - Dislikes\n\n* **PATCH** `/posts/<postId>/dislike` - (Protected)\n\n  Increase the post dislike value by one **ONLY IF** the user that requested did not reacted yet.\n\n* **PATCH** `/posts/<postId>/dislike/undo` - (Protected)\n\n  Decrease the post dislike value by one **ONLY IF** the user that requested already reacted to it."
+				}
+			],
+			"description": "# Reactions - Likes\n\n* **PATCH** `/posts/<postId>/like` - (Protected)\n\n  Increase the post like value by one **ONLY IF** the user that requested did not reacted yet.\n\n* **PATCH** `/posts/<postId>/like/undo` - (Protected)\n\n  Decrease the post like value by one **ONLY IF** the user that requested already reacted to it.\n\n### Reactions - Dislikes\n\n* **PATCH** `/posts/<postId>/dislike` - (Protected)\n\n  Increase the post dislike value by one **ONLY IF** the user that requested did not reacted yet.\n\n* **PATCH** `/posts/<postId>/dislike/undo` - (Protected)\n\n  Decrease the post dislike value by one **ONLY IF** the user that requested already reacted to it."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HTTP_PROTOCOL",
+			"value": "http",
+			"type": "default"
+		},
+		{
+			"key": "API_HOST",
+			"value": "localhost",
+			"type": "default"
+		},
+		{
+			"key": "API_PORT",
+			"value": "3000",
+			"type": "default"
+		},
+		{
+			"key": "API_TOKEN_ST",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkpvaG4gRG9lMSIsImVtYWlsIjoiam9obi5kb2UxQG1haWwuY29tIiwiaWF0IjoxNjUwMDYyMjQzLCJleHAiOjE2NTA2NjcwNDMsImlzcyI6InNvY2lhbC1tZSJ9.avBPdivk74_st6vqfVA9FulKOC82b3xIu6Vkon1QHBk",
+			"type": "default"
+		},
+		{
+			"key": "API_TOKEN_ND",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkpvaG4gRG9lMiIsImVtYWlsIjoiam9obi5kb2UyQG1haWwuY29tIiwiaWF0IjoxNjUwMDYyMjk3LCJleHAiOjE2NTA2NjcwOTcsImlzcyI6InNvY2lhbC1tZSJ9.ecdO_KZ9lby2lKOhpJl0BNBt3GVdnTZCMyRLnybeEmE",
+			"type": "default"
+		},
+		{
+			"key": "API_TOKEN_RD",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IkpvaG4gRG9lMyIsImVtYWlsIjoiam9obi5kb2UzQG1haWwuY29tIiwiaWF0IjoxNjUwMDYyMzExLCJleHAiOjE2NTA2NjcxMTEsImlzcyI6InNvY2lhbC1tZSJ9.suBNu3y9gsBQtXdTHRbrvZMlwolR4W3RJmmcY_hKn_A",
+			"type": "default"
+		}
+	]
+}
